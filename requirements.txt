@@ -5,3 +5,4 @@ joblib
 pydantic
 fastapi
 uvicorn
+jinja2
