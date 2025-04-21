@@ -17,7 +17,9 @@ This project is a sample end-to-end machine learning workflow, including deploym
 
 ## Dataset
 
-- **Source:** [Kaggle – Water Quality and Potability](https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability)
+- **Source:** 
+The dataset used in this project is available on Kaggle – Water Quality and Potability: [Kaggle – Water Quality and Potability](https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability).
+Please download the data directly from Kaggle and place it in the /data folder before running the code.
 - **Features:** pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic Carbon, Trihalomethanes, Turbidity
 - **Target:** Potability (1 = Safe, 0 = Not Safe)
 
