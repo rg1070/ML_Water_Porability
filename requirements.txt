@@ -2,3 +2,5 @@ flask
 pandas
 scikit-learn
 joblib
+pydantic
+fastapi
