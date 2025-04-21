@@ -1,19 +1,30 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import joblib
 import pandas as pd
+import joblib
+import os
 
 app = FastAPI()
 
-# Allow all origins for dev/testing
+# Enable CORS (still useful for debugging/testing)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (fine for dev/test)
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Set up templates
+templates = Jinja2Templates(directory="templates")
+
+# Serve frontend
+@app.get("/", response_class=HTMLResponse)
+async def serve_frontend(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 model = joblib.load("model.joblib")
 scaler = joblib.load("scaler.joblib")
