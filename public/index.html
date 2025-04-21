@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Water Potability Predictor</title>
+</head>
+
+<body>
+    <h2>Water Potability Predictor</h2>
+
+    <form id="predictForm">
+        <label>pH: <input name="ph" type="number" step="0.01" required></label><br>
+        <label>Hardness: <input name="Hardness" type="number" step="0.1" required></label><br>
+        <label>Solids: <input name="Solids" type="number" step="0.1" required></label><br>
+        <label>Chloramines: <input name="Chloramines" type="number" step="0.1" required></label><br>
+        <label>Sulfate: <input name="Sulfate" type="number" step="0.1" required></label><br>
+        <label>Conductivity: <input name="Conductivity" type="number" step="0.1" required></label><br>
+        <label>Organic Carbon: <input name="Organic_carbon" type="number" step="0.1" required></label><br>
+        <label>Trihalomethanes: <input name="Trihalomethanes" type="number" step="0.1" required></label><br>
+        <label>Turbidity: <input name="Turbidity" type="number" step="0.1" required></label><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    <h3 id="result" style="margin-top: 20px;"></h3>
+
+    <script>
+        document.getElementById("predictForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const data = Object.fromEntries(new FormData(form));
+            Object.keys(data).forEach(key => data[key] = parseFloat(data[key]));
+
+            console.log("Sending data:", data);  // For debugging
+
+            try {
+                const response = await fetch("https://ml-water-porability.onrender.com/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const errText = await response.text();
+                    throw new Error("Server error: " + errText);
+                }
+
+                const result = await response.json();
+                console.log("Received result:", result);  // For debugging
+
+                const output = result.potability_prediction === 1
+                    ? "✅ Safe to Drink"
+                    : "⚠️ Not Safe to Drink";
+
+                document.getElementById("result").innerText = output;
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "❌ Error: " + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
