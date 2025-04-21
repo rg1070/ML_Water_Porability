@@ -9,8 +9,11 @@ Built with:
 - Docker (containerized deployment)
 - HTML + JavaScript (frontend)
 - Hosted on Render (free tier)
-
 ---
+
+## Acknowledgement
+---
+This project is a sample end-to-end machine learning workflow, including deployment, created for educational and practice purposes.
 
 ## Dataset
 
