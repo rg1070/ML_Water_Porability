@@ -9,7 +9,7 @@ app = FastAPI()
 # Allow all origins for dev/testing
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or restrict to specific origin later
+    allow_origins=["*"],  # Allow all origins (fine for dev/test)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
